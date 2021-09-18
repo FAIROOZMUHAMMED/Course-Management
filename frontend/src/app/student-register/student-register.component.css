@@ -1,0 +1,10 @@
+#hero{
+    margin-top: 95px;
+    padding-left: 16px;
+    position:relative;
+}
+    
+.form1{
+    float:right;
+    position:static
+}
