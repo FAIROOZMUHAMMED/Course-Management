@@ -23,4 +23,14 @@ export class ProfessorService {
   getProfessors(){
     return this.http.get("http://localhost:3400/professor");
   }
+  reject(student:any){
+    return this.http.put("http://localhost:3400/professor/deleteStudent",student)
+   }
+   accept(student:any){
+    return this.http.put("http://localhost:3400/professor/acceptStudent",student)
+   }
+
+   sendMail(items:any){
+    return this.http.post('http://localhost:3400/professor/sendmail',{"course":items})
+  }
 }

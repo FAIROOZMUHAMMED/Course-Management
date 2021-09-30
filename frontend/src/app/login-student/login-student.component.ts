@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service';
-
+import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-login-student',
+  templateUrl: './login-student.component.html',
+  styleUrls: ['./login-student.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginStudentComponent implements OnInit {
 
   constructor(private _auth: AuthService,
     private _router:Router) { }
@@ -21,10 +20,10 @@ export class LoginComponent implements OnInit {
   }
   loginUser () {
     
-    this._auth.loginProf(this.User)
+    this._auth.loginStdt(this.User)
     .subscribe(
       res => {
-        localStorage.setItem('tokenProf', res.token);
+        localStorage.setItem('tokenSt', res.token);
         localStorage.setItem('emailid', this.User.email);
         localStorage.setItem('UserId', res.id);
         this._router.navigate([''])
@@ -36,4 +35,5 @@ export class LoginComponent implements OnInit {
       }
     ) 
   }
+
 }

@@ -10,43 +10,46 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="_auth.loggedIn()" routerLink="professor">Professor</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" *ngIf="_auth.loggedIn()" routerLink="student">Students</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" routerLink="student">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="_auth.loggedIn()" routerLink="addCourse">Add Course</a>
+            <a class="nav-link" *ngIf="_auth.StudentloggedIn() ||  _auth.ProfessorloggedIn()" routerLink="courses">Courses</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="_auth.loggedIn()" routerLink="studentslist">Students List</a>
+            <a class="nav-link" *ngIf="_auth.ProfessorloggedIn()" routerLink="addCourse">Add Course</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="_auth.loggedIn()" routerLink="enrolledStudents">Enrolled Students</a>
+            <a class="nav-link" *ngIf="_auth.ProfessorloggedIn()" routerLink="studentslist">Students List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="_auth.ProfessorloggedIn()" routerLink="enrolledStudents">Enrolled Students</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
   
             <li class="nav-item dropdown  mx-1">
-              <a class="nav-link dropdown-toggle btn btn-primary" *ngIf="!_auth.loggedIn()" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle btn btn-primary" *ngIf="!_auth.StudentloggedIn() && !_auth.ProfessorloggedIn()" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Signup
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" routerLink="studentRegister">Student</a></li>
-              <!-- <li><hr class="dropdown-divider"></li> -->
               <li><a class="dropdown-item" routerLink="professorRegister">Profesor</a></li>
                 
               </ul>
+              <li class="nav-item dropdown  mx-1">
+                <a class="nav-link dropdown-toggle btn btn-outline-success" *ngIf="!_auth.StudentloggedIn() && !_auth.ProfessorloggedIn()" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  SignIn
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" routerLink="studentlogin">Student</a></li>
+                <li><a class="dropdown-item" routerLink="login">Profesor</a></li>
+                </ul>
             </li>
           
+            
+         
           <li class="nav-item mx-1">
-            <a class="nav-link btn btn-outline-success " *ngIf="!_auth.loggedIn()" routerLink="login">SignIn</a>
-          </li>
-          <li class="nav-item mx-1">
-          <a class="nav-link scrollto btn btn-outline-danger" *ngIf="_auth.loggedIn()" (click)="logoutUser()">Logout</a>
+          <a class="nav-link scrollto btn btn-outline-danger" *ngIf="_auth.StudentloggedIn() ||  _auth.ProfessorloggedIn()" (click)="logoutUser()">Logout</a>
         </li>
         </ul>
        

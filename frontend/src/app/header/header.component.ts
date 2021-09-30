@@ -12,7 +12,14 @@ export class HeaderComponent implements OnInit {
   constructor(public _auth:AuthService,private _router:Router) { }
   logoutUser()
   {
-  localStorage.removeItem('token')
+  localStorage.removeItem('tokenProf')
+  localStorage.removeItem("tokenSt")
+  localStorage.removeItem("editEmployerrId");
+  localStorage.removeItem('editEmployerId')
+  localStorage.removeItem("getStudentId")
+  localStorage.removeItem("UserId"); 
+  localStorage.removeItem("applyCourseId")
+  localStorage.removeItem("emailid");
   this._router.navigate([''])
   }
   ngOnInit(): void {

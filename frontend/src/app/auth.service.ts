@@ -5,21 +5,34 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-  private _loginUrl = "http://localhost:3400/login";
+
   
   constructor(private http: HttpClient) { }
 
 
-  loginUser(user:any)
+  loginProf(user:any)
   {
-    return this.http.post<any>(this._loginUrl, user)
+    return this.http.post<any>("http://localhost:3400/login/professor", user)
   }
+
+  loginStdt(user:any)
+  {
+    return this.http.post<any>("http://localhost:3400/login/student", user)
+  }
+
   loggedIn()
   {
     return !!localStorage.getItem('token')
+  }
+  StudentloggedIn(){
+    return !!localStorage.getItem('tokenSt')
+  }
+  ProfessorloggedIn(){
+    return !!localStorage.getItem('tokenProf')
   }
   getToken()
   {
     return localStorage.getItem('token')
   }
+ 
 }

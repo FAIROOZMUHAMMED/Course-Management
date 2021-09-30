@@ -15,12 +15,30 @@ export class StudentService {
   newUser(studentitem:any)
   {   
     return this.http.post("http://localhost:3400/student/signup",{"student":studentitem})
-    .subscribe(data =>{console.log(data)})
+    .subscribe()
   }
-  getStudent(id:any){
-    return this.http.get("http://localhost:3400/student/"+id);
+  
+
+  applyCourse(items:any){
+    return this.http.post("http://localhost:3400/student/apply",{"student":items})
+    .subscribe()
   }
-  getStudents(){
-    return this.http.get("http://localhost:3400/student");
+
+  appliedstudents(){
+    return this.http.get("http://localhost:3400/student/list")
   }
+
+  getstudents(email:any){
+    return this.http.get("http://localhost:3400/student/applied/"+email);
+  }
+  
+  enrolledStdlist(){
+    return this.http.get("http://localhost:3400/student/enrolledlist");
+  }
+
+  enrolledStdList(email:any){
+    return this.http.get("http://localhost:3400/student/enrolledlist/"+email);
+  }
+
+
 }

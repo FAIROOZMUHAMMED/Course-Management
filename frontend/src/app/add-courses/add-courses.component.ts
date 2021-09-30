@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { StudentService } from '../student.service';
+import { CourseService } from '../course.service';
 
 
 @Component({
@@ -12,55 +12,34 @@ import { StudentService } from '../student.service';
 export class AddCoursesComponent implements OnInit {
 
 
-  constructor(private studentService:StudentService,private router: Router) { }
-  Employer={
-    firstname:'',
-    lastname:'',
+  constructor(private courseService:CourseService,private router: Router) { }
+  course={
+    coursename:'',
+    duration:'',
     email:'',
-    password:'',
-    confirmpass:''
+    courseFee:'',
+    description:'',
   }
-  errormsg:any
-  pwdSt:any
-  txtcolr:any
-  userVerify()
+  email:any=[];
+  addCourse()
   {
-    if (this.Employer.confirmpass===this.Employer.password) {
-      this.studentService.newUser(this.Employer);
-      console.log("Called");    
-      // Swal.fire("Successfully Added", "","success");
-      this.router.navigate(['/login']);
-    } else {
-      Swal.fire("Error", "Passwords are mismatch ", "error")
-    }
+       if(this.course.coursename && this.course.duration && this.course.email && this.course.courseFee && this.course.description !==""){
+        this.courseService.addCourse(this.course)
+        .subscribe((data)=>{
+         
+        })
+        Swal.fire("Successfully Added", "","success");
+        this.router.navigate(['/courses']);
+       }
+       else{
+        Swal.fire("Error", "Fill the Fields ", "error");
+       }
+   
   }
   ngOnInit(): void {
-  }
-  validatepassword(){
-    var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
-    var mediumRegex = new RegExp("^(?=.{8,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])(?=.*\\W))|((?=.*[a-z])(?=.*[0-9])(?=.*\\W))|((?=.*[A-Z])(?=.*[a-z])(?=.*\\W))).*$", "g");
-    var enoughRegex = new RegExp("(?=.{5,}).*", "g");
+    this.email = localStorage.getItem("emailid");
+    this.course.email=this.email;
 
-   if(false === enoughRegex.test(this.Employer.password)){
-    this.pwdSt="More character";
-    this.txtcolr="text-info";
-    
-   }
-   else if(strongRegex.test(this.Employer.password)){
-    this.pwdSt="Strong";
-    this.txtcolr="text-success";
-     
-         
-   }
-   else if(mediumRegex.test(this.Employer.password)){
-    this.pwdSt="Medium";
-    this.txtcolr="text-warning";
-    
-   }
-   else{
-    this.pwdSt="Poor";
-    this.txtcolr="text-danger";
-   
-   } 
   }
+ 
 }

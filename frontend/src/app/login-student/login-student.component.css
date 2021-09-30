@@ -18,14 +18,8 @@
     padding-inline: 1.8em;
     padding-top: .6em;
     padding-bottom: 1em;
-    color: rgb(255, 255, 255);
-    background-color: rgba(0, 0, 0, 0.589);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.404), 0 6px 20px 0 rgba(0, 0, 0, 0.219);
+    color: rgb(29, 12, 12);
+    background-color: rgba(238, 238, 238, 0.466);
+    box-shadow: 0 4px 8px 0 rgba(173, 168, 168, 0.404), 0 6px 20px 0 rgba(0, 0, 0, 0.219);
     margin-bottom: 5%;
    }
-a:hover{
-  color: blue;
-}
-a{
-  color: #bb70ff;
-}

@@ -1,0 +1,37 @@
+.container1{
+  justify-content: center;
+  background-color: #f0f2f5;
+   padding: 12%;
+}
+.head{
+  text-align: center;
+  padding-top: 3%;
+}
+
+.courseForm{
+  justify-content: center;
+  padding: 10%;
+  background-color: #fff;
+  border: 1px;
+  border-radius: 12px;
+  padding: 5px;
+} 
+
+.sub-container{
+    width:100%;
+    padding:5%
+  }
+.sub-container > * {
+  width: 100%;
+  }
+button{
+  background-color:#25c188;
+  color: #FFFFFF;
+  float: right;
+  display: grid;
+  justify-content: center;
+  text-align: center;
+  }
+
+  
+
