@@ -18,7 +18,6 @@ export class StudentService {
     .subscribe()
   }
   
-
   applyCourse(items:any){
     return this.http.post("http://localhost:3400/student/apply",{"student":items})
     .subscribe()
@@ -26,6 +25,9 @@ export class StudentService {
 
   appliedstudents(){
     return this.http.get("http://localhost:3400/student/list")
+  }
+  getStudent(id:any){
+    return this.http.get("http://localhost:3400/student/"+id);
   }
 
   getstudents(email:any){

@@ -1,28 +1,40 @@
 const express = require('express');
 const StudentRouter = express.Router(); 
+const Bcrypt=require('bcryptjs');
 const Studentdata= require('../model/Studentdata');
 const Coursedata= require('../model/Coursedata');
 const AppliedStddata= require('../model/Appliedstudentdata');
 
 StudentRouter.post('/signup',function(req,res){
-
+  const hash = Bcrypt.hashSync(req.body.student.confirmpass, 10);
   // console.log(req.body);
   var Student ={
       firstname : req.body.student.firstname,
       lastname: req.body.student.lastname,
       email:req.body.student.email,
-      confirmpass:req.body.student.confirmpass,
+      confirmpass:hash,
   }
   var Student =new Studentdata(Student);
   Student.save();
 });
 
 StudentRouter.get('/courses',function(req,res){
-  Coursedata.find()
-        .then(function(data){
+  // console.log("data")
+  Coursedata.find().then(function(data){
+          
             res.send(data);
+    
           })
 });
+
+StudentRouter.get('/:id',(req,res)=>{
+  id=req.params.id;
+  Studentdata.findOne({"_id":id})
+  .then(data=>{
+      res.send(data)
+  })
+})
+
 
 StudentRouter.get('/course/:id',function(req,res){
 
@@ -73,15 +85,7 @@ StudentRouter.get('/applied/:email',function(req,res){
           res.send(Stddata);
       });
 });
-// ,{"status":null}
 
-// StudentRouter.get('/enrolledlist',function(req,res){
-//   AppliedStddata.find({status: "accepted"})
-//     .then(data=>{ 
-//         res.send(data)
-       
-//     })
-// });
 
 StudentRouter.get('/enrolledlist/:email',function(req,res){
   const email = req.params.email;

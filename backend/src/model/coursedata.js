@@ -8,8 +8,6 @@ const CourseSchema = new Schema({
     email:String,
     courseFee:Number,
     description:String,
-    studentNo:Number,
-    
 });
 
 var Coursedata = mongoose.model('coursedata',CourseSchema);

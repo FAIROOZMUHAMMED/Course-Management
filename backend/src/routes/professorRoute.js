@@ -1,28 +1,45 @@
 const express = require('express');
 const ProfessorRouter = express.Router(); 
+const Bcrypt=require('bcryptjs');
+const nodemailer=require('nodemailer');
 const Professordata= require('../model/Professordata');
 const Coursedata= require('../model/Coursedata');
 const AppliedStddata= require('../model/Appliedstudentdata');
-const nodemailer=require('nodemailer');
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: '',
-    pass: ''
+
+function verifyToken(req, res, next) {
+  if(!req.headers.authorization) {
+    return res.status(401).send('Unauthorized request')
   }
-});
+  let token = req.headers.authorization.split(' ')[1]
+  if(token === 'null') {
+    return res.status(401).send('Unauthorized request')    
+  }
+  let payload = jwt.verify(token, 'secretKey')
+  if(!payload) {
+    return res.status(401).send('Unauthorized request')     }
+  req.userId = payload.subject
+  next()}
 
 ProfessorRouter.post('/signup',function(req,res){
+  const hash = Bcrypt.hashSync(req.body.professor.confirmpass, 10);
   var Professor ={
       firstname : req.body.professor.firstname,
       lastname: req.body.professor.lastname,
       email:req.body.professor.email,
-      confirmpass:req.body.professor.confirmpass,
+      confirmpass:hash,
   }
   var Professor =new Professordata(Professor);
   Professor.save();
 });
+
+ProfessorRouter.get('/:id',(req,res)=>{
+  id=req.params.id;
+  Professordata.findOne({"_id":id})
+  .then(data=>{
+      res.send(data)
+  })
+})
 
 ProfessorRouter.post('/createcourse',function(req,res){
   var Course = {       
@@ -48,7 +65,24 @@ ProfessorRouter.put('/deleteStudent',function(req,res){
   })
 });
 
-ProfessorRouter.put('/acceptStudent',function(req,res){
+function checklimit(req,res,next){
+  const course=req.body.course;
+  AppliedStddata.count({"course":course,"status":"accepted"})
+  .then(data=>{
+
+      if(data<40){
+          
+          res.send();
+          next();
+      }else{
+          res.status(401).send('sorry..over the limit')
+      }
+    
+  })
+  
+}
+
+ProfessorRouter.put('/acceptStudent',checklimit,function(req,res){
   id=req.body._id;
   AppliedStddata.findByIdAndUpdate({"_id":id},
                                {$set:{"status" : "accepted",
@@ -58,6 +92,7 @@ ProfessorRouter.put('/acceptStudent',function(req,res){
   })
 });
 
+
 ProfessorRouter.get('/course/:email',function(req,res){
   const email = req.params.email;
   Coursedata.find({"email":email })
@@ -66,81 +101,46 @@ ProfessorRouter.get('/course/:email',function(req,res){
       });
 
 });
-ProfessorRouter.get('/sendmail',function(req,res){
-const course=req.body.course;
-    
-// AppliedStddata.find({course:course,status:"accepted"}, function(error, allUsers){
-//     if(error){
-//         console.log(error);
-//     }
-//     var mailList = [];
-//     allUsers.forEach(function(users){
-//         mailList.push(users.email);
-//         return mailList;
-//     });
-//     var smtpTransport = nodemailer.createTransport({
-//         service: 'Gmail', 
-//         auth: {
-//             user: '',
-//             pass: ""
-//         }
-//     });
-//     var mailOptions = {
-//             to: [],
-//             bcc: mailList,
-//             from: '',
-//             subject: 'Form Accepted',
-//             html: '<h1>Congratulations..! </h1> \n<h4> This mail is sent from the course management system. Your application is Accepted</h4>'
-//         };
-//         smtpTransport.sendMail(mailOptions, function(err) {
-//             if(err){
-//                 // console.log(err);
-//                 res.status(401).send( "We seem to be experiencing issues. Please try again later.");
-//                 // res.redirect("/");
-//             }else{
-//                 res.send()
-//             console.log('mail sent to ' + mailList);
-//             }
-//         });
-// });
 
+
+ProfessorRouter.post('/sendmail',function(req,res){
+const course=req.body.course;
+
+AppliedStddata.find({course:course,status:"accepted"}, function(error, Users){
+  
+    if(error){
+        console.log(error);
+    }
+    var mailList = [];
+    Users.forEach(function(users){
+        mailList.push(users.email);
+        return mailList;
+    });
+    var Transporter = nodemailer.createTransport({
+        service: 'Gmail', 
+        auth: {
+          user: 'fairoozmt10@gmail.com',
+          pass: "yqidjzjghrqyycfq"
+      },tls: {
+          rejectUnauthorized: false
+      }
+    });
+    var mailOptions = {
+            to: [],
+            bcc: mailList,
+            from: 'fairoozmt10@gmail.com',
+            subject: 'Successfully Enrolled Course',
+            html: `<h1>Congratulations..! </h1> \n<h4> This mail is sent from the course management system. Your application  is Accepted</h4>`
+        };
+        Transporter.sendMail(mailOptions, function(err) {
+            if(err){
+                res.status(401).send( "We seem to be experiencing issues. Please try again later.");
+            }else{
+                res.send()
+            console.log('mail sent to ' + mailList);
+            }
+        });
+  });
 });
 
-// const course=req.body.course;
-    
-// const accept="accepted"
-// formdata.find({course:course,status:accept}, function(err, allUsers){
-//     if(err){
-//         console.log(err);
-//     }
-//     var mailList = [];
-//     allUsers.forEach(function(users){
-//         mailList.push(users.email);
-//         return mailList;
-//     });
-//     var smtpTransport = nodemailer.createTransport({
-//         service: 'Gmail', 
-//         auth: {
-//             user: '',
-//             pass: ""
-//         }
-//     });
-//     var mailOptions = {
-//             to: [],
-//             bcc: mailList,
-//             from: '',
-//             subject: 'Form Accepted',
-//             html: '<h1>Congratulations..! </h1> \n<h4> This mail is sent from the course management system. Your application is Accepted</h4>'
-//         };
-//         smtpTransport.sendMail(mailOptions, function(err) {
-//             if(err){
-//                 // console.log(err);
-//                 res.status(401).send( "We seem to be experiencing issues. Please try again later.");
-//                 // res.redirect("/");
-//             }else{
-//                 res.send()
-//             console.log('mail sent to ' + mailList);
-//             }
-//         });
-// });
 module.exports = ProfessorRouter;

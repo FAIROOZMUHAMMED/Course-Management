@@ -12,12 +12,12 @@ export class AuthService {
 
   loginProf(user:any)
   {
-    return this.http.post<any>("http://localhost:3400/login/professor", user)
+    return this.http.post<any>("http://localhost:3400/login/professor",{"professor": user})
   }
 
   loginStdt(user:any)
   {
-    return this.http.post<any>("http://localhost:3400/login/student", user)
+    return this.http.post<any>("http://localhost:3400/login/student", {"student": user})
   }
 
   loggedIn()

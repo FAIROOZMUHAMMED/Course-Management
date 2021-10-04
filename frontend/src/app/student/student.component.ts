@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StudentService } from '../student.service';
 
 
 @Component({
@@ -8,11 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentComponent implements OnInit {
 
-  constructor() { }
+  student={
+    firstname:'',
+    lastname:'',
+    email:'',
+    password:'',
+    confirmpass:''
+  }
+  constructor(private StudentData:StudentService) { }
 
 
   ngOnInit(): void {
-    
+    let Id = localStorage.getItem("UserId");
+    this.StudentData.getStudent(Id).subscribe((data)=>{
+      this.student=JSON.parse(JSON.stringify(data));
+    })
     
   }
 

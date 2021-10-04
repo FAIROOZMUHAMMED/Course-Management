@@ -35,9 +35,6 @@ export class EnrolledStudentsComponent implements OnInit {
         this.course = JSON.parse(JSON.stringify(data));
         })
 
-    // this.Studentservice.enrolledStdlist().subscribe((data) => {
-    // this.studentdata = JSON.parse(JSON.stringify(data));
-    //     })   
     this.Studentservice.enrolledStdList(emailId).subscribe((data) => {
     this.studentdata = JSON.parse(JSON.stringify(data));
           })   

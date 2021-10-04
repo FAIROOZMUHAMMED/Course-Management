@@ -1,38 +1,42 @@
-<br>
-<div class="table100 ver6 m-b-110" >
-    <table data-vertable="ver6"id="excel-table"  >
+<div class="main">
+    <br>
+    <div class="table100 ver6 m-b-110 " >          
+        <div class='table-responsive'>
+            <table data-vertable="ver6"id="excel-table"  >
         
-        <thead >
-            <tr class="row100 head">
-                <th class="column100 column1" data-column="column1">Name</th>
-                <th class="column100 column2" data-column="column2">Address</th>
-                <th class="column100 column3" data-column="column3">EMAIL-ID</th>
-                <th class="column100 column4" data-column="column4">Gender</th>
-                <th class="column100 column5" data-column="column5">qualification</th>
-                <th class="column100 column6" data-column="column6">passout</th>
-                <th class="column100 column7" data-column="column7">SKILLS</th>
-                <th class="column100 column8" data-column="column8">district</th>
-                <th class="column100 column9" data-column="column9">Course</th>
+                <thead >
+                    <tr class="row100 head">
+                        <th class="column100 column1" data-column="column1">Name</th>
+                        <th class="column100 column2" data-column="column2">Address</th>
+                        <th class="column100 column3" data-column="column3">EMAIL-ID</th>
+                        <th class="column100 column4" data-column="column4">Gender</th>
+                        <th class="column100 column5" data-column="column5">qualification</th>
+                        <th class="column100 column6" data-column="column6">passout</th>
+                        <th class="column100 column7" data-column="column7">SKILLS</th>
+                        <th class="column100 column8" data-column="column8">district</th>
+                        <th class="column100 column9" data-column="column9">Course</th>
+                
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row100" *ngFor='let student of studentdata'>
+                        <td class="column100 column1" data-column="column1"> {{student.name}}</td>
+                        <td class="column100 column2" data-column="column2"> {{student.address}}</td>
+                        <td class="column100 column3" data-column="column3"> {{student.email}}</td>
+                        <td class="column100 column4" data-column="column4"> {{student.gender}}</td>
+                        <td class="column100 column5" data-column="column5"> {{student.qualification}}</td>
+                        <td class="column100 column6" data-column="column6">{{student.passout}} </td>
+                        <td class="column100 column7" data-column="column7"> {{student.skill}}</td>
+                        <td class="column100 column8" data-column="column8"> {{student.district}}</td>
+                        <td class="column100 column9" data-column="column9"> {{student.course}}</td>
         
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="row100" *ngFor='let student of studentdata'>
-                <td class="column100 column1" data-column="column1"> {{student.name}}</td>
-                <td class="column100 column2" data-column="column2"> {{student.address}}</td>
-                <td class="column100 column3" data-column="column3"> {{student.email}}</td>
-                <td class="column100 column4" data-column="column4"> {{student.gender}}</td>
-                <td class="column100 column5" data-column="column5"> {{student.qualification}}</td>
-                <td class="column100 column6" data-column="column6">{{student.passout}} </td>
-                <td class="column100 column7" data-column="column7"> {{student.skill}}</td>
-                <td class="column100 column8" data-column="column8"> {{student.district}}</td>
-                <td class="column100 column9" data-column="column9"> {{student.course}}</td>
+                    </tr>
+                    
+                </tbody>
+                
+            </table>
 
-            </tr>
-            
-        </tbody>
-        
-    </table>
+        </div>
 </div>
 <br>
 <div style=" text-align: right; width: 85%;">
@@ -45,6 +49,7 @@
           </mat-form-field>
           <br>
           <button style="font-size:24px" id="excel" (click)=mail()>SENT EMAIL<i class="fa fa-file-excel-o"></i></button>
-
+<br>
  <br>
+</div>
 </div>

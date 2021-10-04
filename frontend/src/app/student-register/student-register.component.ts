@@ -28,7 +28,7 @@ export class StudentRegisterComponent implements OnInit {
       this.studentService.newUser(this.Employer);
       console.log("Called");    
       // Swal.fire("Successfully Added", "","success");
-      this.router.navigate(['/login']);
+      this.router.navigate(['//studentlogin']);
     } else {
       Swal.fire("Error", "Passwords are mismatch ", "error")
     }

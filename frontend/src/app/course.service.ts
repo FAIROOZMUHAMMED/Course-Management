@@ -30,7 +30,7 @@ export class CourseService {
   getCourseById(id:any){
     return this.http.get("http://localhost:3400/student/course/"+id);
   }
-  
+
    getCourseByEmail(email:any){
      return this.http.get("http://localhost:3400/professor/course/"+email);
    }

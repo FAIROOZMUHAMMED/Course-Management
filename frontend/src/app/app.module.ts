@@ -33,6 +33,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import { LoginStudentComponent } from './login-student/login-student.component';
 import { AboutComponent } from './about/about.component';
+import { ProfessorComponent } from './professor/professor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +51,7 @@ import { AboutComponent } from './about/about.component';
     ApplyCourseComponent,
     LoginStudentComponent,
     AboutComponent,
+    ProfessorComponent,
 
     
   ],

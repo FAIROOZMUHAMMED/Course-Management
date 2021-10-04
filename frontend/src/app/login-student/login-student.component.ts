@@ -30,8 +30,16 @@ export class LoginStudentComponent implements OnInit {
       },
       err => {
         console.log(err);
+
+        if (err.error=="Invalid credentials"){
+          Swal.fire("Error", "Invalid Credentials ", "error");
+          }else if(err.error=="User not registered.Please sign up"){
+            Swal.fire("Error", "Student is not registered.Please sign up ", "error");
+          }
+        else{
           Swal.fire("Error", "Account doesn't exists ", "error")
-        this._router.navigate(['/login'])
+        }
+
       }
     ) 
   }

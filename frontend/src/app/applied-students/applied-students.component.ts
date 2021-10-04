@@ -46,9 +46,13 @@ export class AppliedStudentsComponent implements OnInit {
           text: 'Do you want to continue',
           icon: 'success',
           confirmButtonText: 'OK'
+        }).then((result) => {
+          window.location.reload();
         })
-        this.router.navigate(['/studentslist'])
-      },
+        
+
+      }
+      ,
       (error)=>
         {
           Swal.fire({
@@ -71,9 +75,11 @@ export class AppliedStudentsComponent implements OnInit {
           text: 'Do you want to continue',
           icon: 'success',
           confirmButtonText: 'OK'
-        }) 
-        this.router.navigate(['/studentslist'])
+        }).then((result) => {
+          window.location.reload();
+        })
       }
+      
      
     )
   }

@@ -1,0 +1,12 @@
+.heading{
+    margin-top: 13%;
+    text-align: center;
+}
+.body{
+    min-height: 540px;
+    padding-top: 155px;
+}
+img{
+
+    min-height: fit-content;
+}
